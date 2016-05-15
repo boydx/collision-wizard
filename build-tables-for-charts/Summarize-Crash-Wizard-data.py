@@ -4,10 +4,15 @@ import collections
 import sys
 
 csvfile = open(sys.argv[1])
+#Some collision wizard extracts are tab delimited
 input_data = csv.reader(csvfile, delimiter=',', quotechar='"')
 #input_data = csv.reader(csvfile, delimiter='\t', quotechar='"')
+
+#Grab field names and appeand a field called "COLLISION"
 headers = next(input_data)
 headers.append('COLLISION')
+
+#Write out new .csv with comma delimited fields
 out_data = open('data.csv', 'w')
 output_data = csv.writer(out_data)
 output_data.writerow(headers)
@@ -17,6 +22,7 @@ for row in input_data:
 
 out_data.close()
 
+#Aggreate by month the values in the following fields:
 fields = ["COLLISION", "KILLED", "INJURED"]
 for field in fields:
     reader = csv.DictReader(open('data.csv'))

@@ -1,3 +1,7 @@
+# This scripts uses ArcPy and Python 2.7 to extract a county and its roads 
+# The roads and counties are downloaded from the Kentuckty Geography Network, http://kygisserver.ky.gov/geoportal
+# Feature classes are added to a geodatabase specified in the env.workspace 
+
 # Import arcpy module
 import arcpy
 

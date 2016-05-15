@@ -1,10 +1,13 @@
+# This scripts uses ArcPy and Python 2.7 to create analysis for collision points downloaded from: http://crashinformationky.org/KCAP/KYOPS/SearchWizard.aspx
+
+
 # Import arcpy module
 import arcpy
 
 # Import environment class
 from arcpy import env 
 from arcpy import sa #Get Spatial Analyst Extension for Kernel Density Function
-env.workspace = r'T:\L1\CollisionAnalysis_FINAL\fra.gdb'  #SET This!!!
+env.workspace = r'T:\L1\CollisionAnalysis_FINAL\fra.gdb'  
 outputspace = r'T:\L1\CollisionAnalysis_FINAL\fra.gdb' 
 
 #Get Parameters
@@ -38,14 +41,14 @@ arcpy.Clip_analysis("tempprj",incounty,outcollision)
 #summary table
 arcpy.Statistics_analysis(outcollision,SummaryTable,"KILLED SUM;INJURED SUM","HIT___RUN_INDICATOR")
 
-#at intersections
+#Collision by nearest intersection
 arcpy.Intersect_analysis(inrds,outintersections,"","","POINT")
 arcpy.Select_analysis(outcollision,"AtIntersections","INTERSECTION_ROADWAY_NAME IS NOT NULL")
 arcpy.Near_analysis("AtIntersections", outintersections)
 arcpy.Statistics_analysis("AtIntersections", "Table_with_summary_stats_int", "KILLED SUM;INJURED SUM;OBJECTID COUNT", "NEAR_FID")
 arcpy.JoinField_management(outintersections, "OBJECTID", "Table_with_summary_stats_int", "NEAR_FID", "FREQUENCY;SUM_KILLED;SUM_INJURED;COUNT_OBJECTID")
 
-#at segment
+#Collision by nearest road segment
 arcpy.Select_analysis(outcollision,"AtSegments","INTERSECTION_ROADWAY_NAME IS NULL")
 arcpy.Near_analysis("AtSegments", inrds)
 arcpy.Statistics_analysis("AtSegments", "Table_with_summary_stats", "KILLED SUM;INJURED SUM;OBJECTID COUNT", "NEAR_FID")
@@ -55,7 +58,7 @@ arcpy.JoinField_management(RdSegmentCollisions, "OBJECTID", "Table_with_summary_
 arcpy.AddField_management(RdSegmentCollisions,"CrashesPerMile","DOUBLE")
 arcpy.CalculateField_management(RdSegmentCollisions,"CrashesPerMile","[FREQUENCY]/[Shape_Length]*5280")
 
-#KD
+#Heat map, aka kernel density
 tempkernel = arcpy.sa.KernelDensity(outcollision, "", "20", searchdis)
 tempkernel.save(outkernel)
 

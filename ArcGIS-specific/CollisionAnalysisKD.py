@@ -1,10 +1,14 @@
+# This scripts uses ArcPy and Python 2.7 to extract create mulitple heat maps for collision points downloaded from: http://crashinformationky.org/KCAP/KYOPS/SearchWizard.aspx
+
+
+
 # Import arcpy module
 import arcpy
 
 # Import environment class
 from arcpy import env 
 from arcpy import sa #Get Spatial Analyst Extension for Kernel Density Function
-env.workspace = r'T:\L1\CollisionAnalysis_Example\jco.gdb'  #SET This!!!
+env.workspace = r'T:\L1\CollisionAnalysis_Example\jco.gdb'  
 outputspace = r'T:\L1\CollisionAnalysis_Example\jco.gdb' 
 
 #Get Parameters
@@ -22,7 +26,7 @@ SummaryTable = arcpy.GetParameterAsText(9) #seach radius for kernel density func
 templyr = "xy.lyr" #temp output for make XY layer
 
 
-env.extent = incounty
+env.extent = incounty #This makes sure the output extent of your raster functions match that of your county
 
 
 
