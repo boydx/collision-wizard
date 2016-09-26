@@ -3,6 +3,9 @@ import csv
 import collections
 import sys
 
+#input CSV needs to have date field with two-digit month, e.g., 01/7/2005 for Janauary 7, 2005
+
+#file to summarize, e.g., user-shell$ python Summarize-Crash-Wizard-data.py in-data.csv
 csvfile = open(sys.argv[1])
 #Some collision wizard extracts are tab delimited
 input_data = csv.reader(csvfile, delimiter=',', quotechar='"')
