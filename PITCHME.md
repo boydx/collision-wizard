@@ -8,5 +8,5 @@ The End :) or not...
 
 #HSLIDE
 
-![Video](https://www.youtube.com/watch?v=OR4JaAmA9rk)
+![Video](https://youtu.be/OR4JaAmA9rk)
 
