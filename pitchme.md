@@ -4,4 +4,4 @@ Hello, World!
 
 #HSLIDE
 
-The End :)
+The End
