@@ -5,7 +5,6 @@ Hello, World!
 #HSLIDE
 
 The End
-<<<<<<< HEAD:pitchme.md
 
 #HSLIDE
 
